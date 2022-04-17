@@ -12,3 +12,15 @@ post '/teams/:team_id/players' do |team_id|
   comment = team.players.create!(player)
   team.attributes.merge(players: team.players).to_json
 end
+
+patch '/players/:id' do |id|
+  player = Player.find(id)
+  player.update(JSON.parse(params[:player]))
+  player
+end
+
+delete '/players/:id' do |id|
+  player = Player.find(id)
+  player.destroy
+  {status: 204}.to_json
+end
