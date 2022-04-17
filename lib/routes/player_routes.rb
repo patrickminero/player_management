@@ -1,3 +1,7 @@
+get '/teams/:team_id/players' do |team_id|
+  Team.find(team_id).players.to_json
+end
+
 post '/teams/:team_id/players' do |team_id|
   player = JSON.parse params[:player]
   team = Team.find(team_id)
