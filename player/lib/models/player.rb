@@ -7,4 +7,5 @@ class Player
   field :team_id, type: String
 
   validates :position, inclusion: { in: [ "goalkeeper", "defender", "midfield", "forward" ] }
+  validates :name, :position, :price, :team_id, presence: true
 end
