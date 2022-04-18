@@ -16,7 +16,7 @@ post '/teams/:team_id/players' do
 end
 
 patch '/players/:id' do |id|
-  PlayerUpdater.new(@player).update(params[:player])
+  PlayerUpdater.new(@player).update(params)
 end
 
 delete '/players/:id' do |id|

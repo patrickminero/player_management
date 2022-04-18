@@ -5,6 +5,6 @@ class ParamSanitizer
   end
 
   def sanitize params
-    params.select { |param| @valid_fields.include? param.to_s }
+    JSON.parse(params[:player]).merge({"team_id": params[:team_id]}).select { |param| @valid_fields.include? param.to_s }
   end
 end

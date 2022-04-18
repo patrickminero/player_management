@@ -1,6 +1,6 @@
 class PlayerBuilder
   def initialize params
-    @params = JSON.parse(params[:player]).merge({"team_id": params[:team_id]})
+    @params = params
   end
 
   def build
