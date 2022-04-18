@@ -24,6 +24,14 @@ RSpec.configure do |config|
     FactoryBot.find_definitions
   end
 
+  config.before(:each) do
+    DatabaseCleaner[:mongoid].start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner[:mongoid].clean
+  end
+
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|
