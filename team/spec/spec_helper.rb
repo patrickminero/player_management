@@ -20,9 +20,9 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include FactoryBot::Syntax::Methods
 
-  # config.before(:suite) do
-  #   FactoryBot.find_definitions
-  # end
+  config.before(:suite) do
+    FactoryBot.find_definitions
+  end
 
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
