@@ -1,5 +1,6 @@
 before '/players/:id' do
   @player = Player.find(params[:id]) || {}
+  halt 404, { message: 'Player not found' }.to_json unless @player.present?
 end
 
 get '/teams/:team_id/players' do |team_id|
@@ -7,22 +8,18 @@ get '/teams/:team_id/players' do |team_id|
 end
 
 get '/players/:id' do
-  return { status: 404, error: 'player not found' }.to_json unless @player.present?
   @player.to_json
 end
 
 post '/teams/:team_id/players' do
-  PlayerBuilder.new(params).build.to_json
+  PlayerBuilder.new(params).build
 end
 
 patch '/players/:id' do |id|
-  return { status: 404, error: 'player not found' }.to_json unless @player.present?
-  @player.update(ParamSanitizer.new(Player).sanitize(params[:player]))
-  @player.to_json
+  PlayerUpdater.new(@player).update(params[:player])
 end
 
 delete '/players/:id' do |id|
-  return { status: 404, error: 'player not found' }.to_json unless @player.present?
   @player.destroy
   {status: 204}.to_json
 end
