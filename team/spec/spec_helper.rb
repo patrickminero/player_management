@@ -1,6 +1,6 @@
 require 'rspec'
 require 'rack/test'
-require './app.rb'
+require '../server.rb'
 require 'database_cleaner'
 require 'factory_bot'
 
