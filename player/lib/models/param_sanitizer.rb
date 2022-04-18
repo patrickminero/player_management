@@ -5,6 +5,6 @@ class ParamSanitizer
   end
 
   def sanitize params
-    JSON.parse(params).select { |param| @valid_fields.include? param }
+    params.select { |param| @valid_fields.include? param.to_s }
   end
 end

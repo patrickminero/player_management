@@ -12,13 +12,7 @@ get '/players/:id' do
 end
 
 post '/teams/:team_id/players' do
-  player = Player.new(ParamSanitizer.new(Player).sanitize(params[:player]))
-  player.team_id = params[:team_id]
-  if player.save
-    player.to_json
-  else
-    player.errors.to_json
-  end
+  PlayerBuilder.new(params).build.to_json
 end
 
 patch '/players/:id' do |id|
