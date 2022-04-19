@@ -1,6 +1,6 @@
 before '/teams/:id' do
-  @team = Team[params[:id]] || {}
-  halt 404, { message: 'Team not found' }.to_json unless @team.exists?
+  @team = Team[params[:id]]
+  halt 404, { message: 'Team not found' }.to_json unless @team
 end
 
 get '/teams' do
