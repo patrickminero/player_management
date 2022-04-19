@@ -1,7 +1,7 @@
 require 'rspec'
 require 'rack/test'
-require './app.rb'
-require 'database_cleaner'
+require 'database_cleaner-sequel'
+require '../server.rb'
 require 'factory_bot'
 
 RSpec.configure do |config|
@@ -22,6 +22,18 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
+    FactoryBot.define do
+      to_create(&:save)
+      end
+  end
+
+  DatabaseCleaner[:sequel].strategy = :transaction
+  config.before :each do
+    DatabaseCleaner[:sequel].start
+  end
+
+  config.after :each do
+    DatabaseCleaner[:sequel].clean
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
