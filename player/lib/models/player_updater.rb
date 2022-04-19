@@ -4,6 +4,6 @@ class PlayerUpdater
   end
 
   def update params
-    @player.update(ParamSanitizer.new(Player).sanitize(params)) ? @player.to_json : @player.errors.to_json
+    @player.update(ParamSanitizer.new(Player).sanitize(params)) ? 202 : @player.errors.to_json
   end
 end
