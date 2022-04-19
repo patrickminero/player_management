@@ -1,6 +1,9 @@
 require 'sinatra'
-require 'mongoid'
+require 'sequel'
+
+DB = Sequel.connect('sqlite://teams.db')
+
 require 'require_all'
 require_all 'lib'
 
-Mongoid.load!(File.join(File.dirname(__FILE__), 'config', 'mongoid.yml'))
+
