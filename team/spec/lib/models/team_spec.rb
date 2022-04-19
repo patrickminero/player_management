@@ -3,8 +3,8 @@ require 'spec_helper'
 RSpec.describe Team, type: :model do
   describe "validations" do
     it "should test the presence of the name" do
-      song = Team.new(name: '')
-      expect(song).to_not be_valid
+      team = Team.new(name: '')
+      expect(team).to_not be_valid
     end
   end
 
