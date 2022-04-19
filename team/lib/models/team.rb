@@ -1,7 +1,6 @@
-class Team
-  include Mongoid::Document
-
-  field :name, type: String
-
-  validates :name, presence: true
+class Team < Sequel::Model(:teams)
+  def validate
+    super
+    errors.add(:name, 'cannot be empty') if !name || name.empty?
+  end
 end
