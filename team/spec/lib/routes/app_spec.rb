@@ -17,18 +17,26 @@ RSpec.describe "App", type: :request do
     context 'with the right id' do
       let(:team) { create(:team) }
       let(:response) { get "/teams/#{team.id}" }
-      it 'should return a json string with the correct data' do
-        expect(response.body).to eq team.to_json
+      it 'should return the correct object' do
         expect(response.status).to eq 200
+        expect(response.body).to eq(team.values.to_json)
       end
     end
   end
 
+  describe 'POST /teams' do
+    let(:response) { post '/teams?name=ValenciaCF' }
+    it 'creates a new team' do
+      expect(response.status).to eq 201
+    end
+  end
+
   describe 'GET /teams' do
-    let(:teams) { create_list(:team, 5) }
+    
     let(:response) { get '/teams' }
     it 'returns all teams with a json format' do
-      expect(response.body).to eq(teams.to_json)
+      post '/teams?name=BarcelonaCF'
+      expect(JSON.parse(response.body).map{|team| team['name']}).to include('BarcelonaCF')
     end
   end
 end
