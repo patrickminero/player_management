@@ -7,6 +7,6 @@ class Team < Sequel::Model(:teams)
 
   def validate
     super
-    errors.add(:name, 'cannot be empty') if !name || name.empty?
+    validates_presence :name, message: 'Please fill all required fields'
   end
 end
