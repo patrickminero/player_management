@@ -4,6 +4,11 @@ class PlayerUpdater
   end
 
   def update params
-    @player.update(ParamSanitizer.new(Player).sanitize(params)) ? 202 : @player.errors.to_json
+    begin
+      @player.update(ParamSanitizer.new(Player).sanitize(params))
+      202
+    rescue Sequel::ValidationFailed
+      @player.errors.to_json
+    end
   end
 end
