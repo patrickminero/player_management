@@ -5,6 +5,11 @@ class PlayerBuilder
 
   def build
     player = Player.new(ParamSanitizer.new(Player).sanitize(@params))
-    player.save ? 201 : player.errors.to_json
+    begin
+      player.save
+      201
+    rescue Sequel::ValidationFailed
+      player.errors.to_json
+    end
   end
 end
