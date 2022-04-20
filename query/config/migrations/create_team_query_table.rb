@@ -1,11 +1,9 @@
 require 'sequel'
 DB = Sequel.connect('sqlite://query.db')
 
-# DB.drop_table :teams
-# DB.drop_table :players
 DB.create_table :teams do
   primary_key :id
-  String :name, :null=>false, :unique=>true
+  String :name, :null=>false
 end
 
 DB.create_table :players do
