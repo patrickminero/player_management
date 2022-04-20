@@ -3,11 +3,10 @@ require 'spec_helper'
 RSpec.describe PlayerBuilder, type: :model do
   describe 'PlayerBuilder' do
     context 'with valid params' do
-      let(:params) { {player: {name: 'John Smith', position: 'midfield', price: 30000}.to_json, team_id: '23asd132'} }
+      let(:params) { {player: {name: 'John Smith', position: 'midfielder', price: 30000}.to_json, team_id: '23asd132'} }
       let(:player) { PlayerBuilder.new(params).build }
-      it 'should return a valid player in json format' do
-        expect(player.class).to eq String
-        expect(JSON.parse(player).keys).to include('_id')
+      it 'should return a created status' do
+        expect(player).to eq 201
       end
     end
 
@@ -15,7 +14,7 @@ RSpec.describe PlayerBuilder, type: :model do
       let(:params) { {player: {name: 'John Smith', position: 'something', price: 30000}.to_json, team_id: '23asd132'} }
       let(:player) { PlayerBuilder.new(params).build }
       it 'should return a hash with the error message' do
-        expect(player).to eq ({position: ['is not included in the list']}.to_json)
+        expect(player).to eq({:position=>["Enter a valid position"]}.to_json)
       end
     end
   end
