@@ -19,7 +19,7 @@ RSpec.describe "App", type: :request do
       let(:response) { get "/teams/#{team.id}" }
       it 'should return the correct object' do
         expect(response.status).to eq 200
-        expect(response.body).to eq(team.to_hash.merge(players: team.players).to_json)
+        expect(response.body).to eq(team.to_hash.merge(players: Player.where(team_id: team.id).map{|player| player.to_hash}).to_json)
       end
     end
   end
