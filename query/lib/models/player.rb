@@ -2,10 +2,6 @@ Sequel::Model.plugin :validation_helpers
 class Player < Sequel::Model(:players)
   set_primary_key :id
 
-  def self.by_position position
-    all.select{ |player| player.position == position }
-  end
-
   def validate
     super
     validates_presence [:name, :price, :team_id, :position], message: 'Please fill all required fields', on: :create
