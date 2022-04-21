@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sequel'
+require 'bunny'
 
 DB = Sequel.connect('sqlite://query.db')
 
