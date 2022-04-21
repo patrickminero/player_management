@@ -1,6 +1,6 @@
 Sequel::Model.plugin :validation_helpers
 class Player < Sequel::Model(:players)
-  many_to_one :team
+  set_primary_key :id
 
   def self.by_position position
     all.select{ |player| player.position == position }
