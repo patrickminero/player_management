@@ -6,6 +6,7 @@ gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 gem 'sequel', '~> 5.55'
 gem "bunny", ">= 2.19.0"
 gem 'dry-validation', '~> 0.1.0'
+gem 'dry-types', '~> 0.12.0'
 
 group :test, :development do
   gem 'rspec'
