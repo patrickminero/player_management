@@ -10,8 +10,8 @@ module Domain
           Domain::Models::Player.find(id)
         end
 
-        def update
-          Player.update(params)
+        def self.update(id, params)
+          player = find(id.to_i).update(params)
         end
 
         def find_by_team(team_id)

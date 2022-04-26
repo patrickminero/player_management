@@ -18,7 +18,8 @@ class PlayersController < Sinatra::Base
   end
 
   patch '/players/:id' do
-    PlayerUpdater.new(@player).update(params)
+    player = App::Commands::UpdatePlayer.call(params)
+    player.errors.empty? ? 202 : player.errors.to_hash.to_json
   end
 
   delete '/players/:id' do |id|
