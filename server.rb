@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'sequel'
 require 'bunny'
+require 'dry-types'
+require 'dry-validation'
 
 DB = Sequel.connect('sqlite://player_management.db')
 
