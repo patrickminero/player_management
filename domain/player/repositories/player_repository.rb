@@ -2,6 +2,10 @@ module Domain
   module Player
     module Repositories
       class PlayerRepository
+        def self.all(position)
+          !position ? Domain::Models::Player.all : Domain::Models::Player.where(position: position)
+        end
+
         def self.create(params)
           Domain::Models::Player.create(params)
         end
@@ -11,11 +15,7 @@ module Domain
         end
 
         def self.update(id, params)
-          player = find(id.to_i).update(params)
-        end
-
-        def find_by_team(team_id)
-          Player.where(team_id: team_id)
+          find(id.to_i).update(params)
         end
       end
     end

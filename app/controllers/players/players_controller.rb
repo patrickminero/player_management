@@ -4,8 +4,8 @@ class PlayersController < Sinatra::Base
     halt 404, { message: 'Player not found' }.to_json if @player.nil?
   end
 
-  get '/teams/:team_id/players' do |team_id|
-    Player.where(team_id: team_id).map{|player| player.values}.to_json
+  get '/players' do
+    App::Commands::IndexPlayer.call(params[:position]).to_json
   end
 
   get '/players/:id' do
