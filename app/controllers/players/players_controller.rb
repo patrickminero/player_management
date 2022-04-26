@@ -1,6 +1,6 @@
 class PlayersController < Sinatra::Base
   before '/players/:id' do
-    @player = Player[params[:id].to_i]
+    @player = App::Commands::GetPlayer.call(params[:id])
     halt 404, { message: 'Player not found' }.to_json if @player.nil?
   end
 
@@ -9,7 +9,7 @@ class PlayersController < Sinatra::Base
   end
 
   get '/players/:id' do
-    @player.values.to_json
+    @player.to_hash.to_json
   end
 
   post '/teams/:team_id/players' do
