@@ -13,7 +13,8 @@ class PlayersController < Sinatra::Base
   end
 
   post '/teams/:team_id/players' do
-    PlayerBuilder.new(params).build
+    player = App::Commands::CreatePlayer.call(params)
+    player.valid? ? 201 : player.errors.to_json
   end
 
   patch '/players/:id' do
