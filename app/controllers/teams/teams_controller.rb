@@ -4,7 +4,8 @@ class  TeamsController < Sinatra::Base
   end
 
   get '/teams/:id' do |id|
-    
+    team = App::Commands::Teams::GetTeam.call(params[:id])
+    team ? team.to_hash.to_json : 404
   end
 
   post '/teams' do
