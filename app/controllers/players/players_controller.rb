@@ -1,20 +1,16 @@
 class PlayersController < Sinatra::Base
-  before '/players/:id' do
-    @player = App::Commands::GetPlayer.call(params[:id])
-    halt 404, { message: 'Player not found' }.to_json if @player.nil?
-  end
-
   get '/players' do
     App::Commands::IndexPlayer.call(params[:position]).to_json
   end
 
   get '/players/:id' do
-    @player.to_hash.to_json
+    player = App::Commands::GetPlayer.call(params[:id]).to_hash.to_json
+    player.errors.empty? ? 200 : player.errors.to_hash.to_json
   end
 
   post '/teams/:team_id/players' do
     player = App::Commands::CreatePlayer.call(params)
-    player.valid? ? 201 : player.errors.to_json
+    player.errors.empty? ? 201 : player.errors.to_hash.to_json
   end
 
   patch '/players/:id' do
@@ -23,7 +19,7 @@ class PlayersController < Sinatra::Base
   end
 
   delete '/players/:id' do |id|
-    @player.destroy
-    {status: 204}.to_json
+    player = App::Commands::DeletePlayer.call(params[:id])
+    player ? 204 : 404
   end
 end

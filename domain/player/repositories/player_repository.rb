@@ -15,7 +15,11 @@ module Domain
         end
 
         def self.update(id, params)
-          find(id.to_i).update(params)
+          find(id.to_i)&.update(params)
+        end
+
+        def self.destroy(id)
+          find(id.to_i)&.destroy
         end
       end
     end
