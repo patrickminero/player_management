@@ -19,6 +19,7 @@ class  TeamsController < Sinatra::Base
   end
 
   delete '/teams/:id' do |id|
-    
+    team = App::Commands::Teams::DeleteTeam.call(params[:id])
+    team ? 204 : 404
   end
 end
