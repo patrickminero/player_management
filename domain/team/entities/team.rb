@@ -5,12 +5,12 @@ module Domain
         attr_reader :name
 
         def initialize params
-          @id = params[:id]
+          @id = params[:id] if params[:id]
           @name = params[:name]
         end
 
         def to_hash
-          {id: @id, name: @name}
+          !@id ? { name: @name} : { id: @id, name: @name }
         end
       end
     end

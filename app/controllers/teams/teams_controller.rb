@@ -9,7 +9,8 @@ class  TeamsController < Sinatra::Base
   end
 
   post '/teams' do
-    
+    team = App::Commands::Teams::CreateTeam.call(params)
+    team ? 201 : 403
   end
 
   patch '/teams/:id' do |id|
