@@ -13,8 +13,9 @@ class  TeamsController < Sinatra::Base
     team ? 201 : 403
   end
 
-  patch '/teams/:id' do |id|
-    
+  patch '/teams/:id' do
+    team = App::Commands::Teams::UpdateTeam.call(params)
+    team ? 202 : 400
   end
 
   delete '/teams/:id' do |id|
