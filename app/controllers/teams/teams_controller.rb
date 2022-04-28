@@ -10,12 +10,12 @@ class  TeamsController < Sinatra::Base
 
   post '/teams' do
     team = App::Commands::Teams::CreateTeam.call(params)
-    team ? 201 : 403
+    team ? 201 : 400
   end
 
   patch '/teams/:id' do
     team = App::Commands::Teams::UpdateTeam.call(params)
-    team ? 202 : 400
+    team ? 202 : 404
   end
 
   delete '/teams/:id' do |id|
