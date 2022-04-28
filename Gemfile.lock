@@ -1,21 +1,40 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    actionpack (7.0.2.3)
+      actionview (= 7.0.2.3)
+      activesupport (= 7.0.2.3)
+      rack (~> 2.0, >= 2.2.0)
+      rack-test (>= 0.6.3)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.0, >= 1.2.0)
+    actionview (7.0.2.3)
+      activesupport (= 7.0.2.3)
+      builder (~> 3.1)
+      erubi (~> 1.4)
+      rails-dom-testing (~> 2.0)
+      rails-html-sanitizer (~> 1.1, >= 1.2.0)
     activesupport (7.0.2.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     amq-protocol (2.3.2)
+    builder (3.2.4)
     bunny (2.19.0)
       amq-protocol (~> 2.3, >= 2.3.1)
       sorted_set (~> 1, >= 1.0.2)
     concurrent-ruby (1.1.10)
+    crass (1.0.6)
     database_cleaner-core (2.0.1)
     database_cleaner-sequel (2.0.2)
       database_cleaner-core (~> 2.0.0)
       sequel
     diff-lcs (1.5.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     dry-configurable (0.15.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.6)
@@ -41,6 +60,7 @@ GEM
       dry-configurable (~> 0.1)
       dry-container (~> 0.2, >= 0.2.6)
       dry-equalizer (~> 0.2)
+    erubi (1.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     faker (2.20.0)
@@ -48,14 +68,39 @@ GEM
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     inflecto (0.0.2)
+    loofah (2.17.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.5.9)
+    mail (2.7.1)
+      mini_mime (>= 0.1.1)
+    method_source (1.0.0)
+    mini_mime (1.1.2)
+    mini_portile2 (2.8.0)
     minitest (5.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    nokogiri (1.13.4)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
+    racc (1.6.0)
     rack (2.2.3)
     rack-protection (2.2.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rails-dom-testing (2.0.3)
+      activesupport (>= 4.2.0)
+      nokogiri (>= 1.6)
+    rails-html-sanitizer (1.4.2)
+      loofah (~> 2.3)
+    railties (7.0.2.3)
+      actionpack (= 7.0.2.3)
+      activesupport (= 7.0.2.3)
+      method_source
+      rake (>= 12.2)
+      thor (~> 1.0)
+      zeitwerk (~> 2.5)
+    rake (13.0.6)
     rbtree (0.4.5)
     require_all (3.0.0)
     rspec (3.11.0)
@@ -85,9 +130,11 @@ GEM
       rbtree
       set (~> 1.0)
     sqlite3 (1.4.2)
+    thor (1.2.1)
     tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    zeitwerk (2.5.4)
 
 PLATFORMS
   ruby
@@ -95,10 +142,12 @@ PLATFORMS
 DEPENDENCIES
   bunny (>= 2.19.0)
   database_cleaner-sequel
+  dotenv-rails
   dry-types (~> 0.12.0)
   dry-validation (~> 0.1.0)
   factory_bot
   faker
+  mail
   rack-test
   require_all
   rspec
