@@ -1,12 +1,16 @@
 # ReadMe
 
 This is an example application moving from working on rails monolith applications to a hexagonal architecture.
-Is build with `Sinatra`, `Sequel`, `SQLite`, `Bunny`and `RSpec` for the testing.
+Is build with `Sinatra`, `Sequel`, `SQLite`, `Bunny`, `Thin`, `Mailcatcher` and `RSpec` for the testing.
 This application assume you have `RabbitMQ` install in your computer.
 
 ## Setup
 `brew install rabbitmq`
 `bundle install`
+`gem install thin`
+`gem install mailcatcher`
+`mailcatcher` --  to start mailcatcher  on http://127.0.0.1:1080/
+`ruby mailers/new_player_mailer.rb` -- to start mailer service
 
 ## Run Migrations.
 `sequel -m db/migrations sqlite://player_management.db`

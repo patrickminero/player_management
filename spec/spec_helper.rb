@@ -1,8 +1,11 @@
 require 'rspec'
 require 'rack/test'
 require 'database_cleaner-sequel'
+require 'rspec_sequel_matchers'
 require '../server.rb'
 require 'factory_bot'
+
+DB = Sequel.connect('sqlite://player_management_test.db')
 
 RSpec.configure do |config|
 
@@ -17,6 +20,8 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  config.include RspecSequel::Matchers
+
   config.include Rack::Test::Methods
   config.include FactoryBot::Syntax::Methods
 
@@ -27,13 +32,8 @@ RSpec.configure do |config|
       end
   end
 
-  DatabaseCleaner[:sequel].strategy = :transaction
-  config.before :each do
-    DatabaseCleaner[:sequel].start
-  end
-
-  config.after :each do
-    DatabaseCleaner[:sequel].clean
+  config.around(:each) do |example|
+    DB.transaction(:rollback=>:always, :auto_savepoint=>true){example.run}
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
