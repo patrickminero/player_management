@@ -7,7 +7,13 @@ module Domain
         end
 
         def self.create(params)
-          Domain::Models::Player.create(params)
+          player = Domain::Models::Player.create(params)
+          if player.valid?
+            email = Domain::Team::Services::GetTeam.call(player.team_id).email
+            body = {subject: "#{player.name} added to your team", email: email, player: player.to_hash}.to_json
+            self.send_player_email body
+          end
+          player
         end
 
         def self.find(id)
@@ -15,11 +21,37 @@ module Domain
         end
 
         def self.update(id, params)
-          find(id.to_i)&.update(params)
+          player = find(id.to_i)&.update(params)
+          if player.valid?
+            email = Domain::Team::Services::GetTeam.call(player.team_id).email
+            body = {subject: "#{player.name} info has been updated", email: email, player: player.to_hash}.to_json
+            self.send_player_email body
+          end
+          player
         end
 
         def self.destroy(id)
-          find(id.to_i)&.destroy
+          player = find(id.to_i)
+          player&.destroy
+
+          if player.valid?
+            email = Domain::Team::Services::GetTeam.call(player.team_id).email
+            body = {subject: "#{player.name} removed your team", email: email, player: player.to_hash}.to_json
+            send_player_email body
+          end
+          player
+        end
+
+        private
+
+        def self.send_player_email body
+          conn = Bunny.new
+          conn.start
+
+          ch = conn.create_channel
+          q  = ch.queue("new_player_email")
+          x  = ch.default_exchange.publish(body, :routing_key => q.name)
+          conn.close
         end
       end
     end
